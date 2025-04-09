@@ -1,2 +1,3 @@
 netvenv
 .env
+__pycache__
