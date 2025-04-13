@@ -6,7 +6,7 @@ from networksecurity.entity.artifact_entity import DataIngestionArtifact
 import os,sys
 import numpy as np
 import pandas as pd
-from typing import List 
+from typing import List
 from sklearn.model_selection import train_test_split
 from dotenv import load_dotenv
 load_dotenv()
@@ -26,6 +26,7 @@ class DataIngestion:
         '''
         
         try:
+            # df = pd.read_csv("F:\New folder\network-security\network_data\phisingData.csv")
             database_name = self.data_ingestion_config.database_name
             collection_name = self.data_ingestion_config.collection_name
             self.mongo_client = pymongo.MongoClient(MONGO_DB_URL)
@@ -66,9 +67,6 @@ class DataIngestion:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-
-
-           
     def initiate_data_ingestion(self):
         try:    
             dataframe = self.export_collection_as_dataframe()
@@ -80,15 +78,5 @@ class DataIngestion:
             )
             
             return dataingestionartifact
-            
-            
-        
         except Exception as e:
             raise NetworkSecurityException(e,sys)
-        
-        
-        
-
-
-
-
