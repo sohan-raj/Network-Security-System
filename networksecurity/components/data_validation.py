@@ -3,7 +3,7 @@ from networksecurity.logging.logger import logging
 from networksecurity.entity.config_entity import DataValidationConfig
 from networksecurity.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 from networksecurity.constant.training_pipeline import SCHEMA_FILE_PATH
-from networksecurity.utils.main_utils.utils import read_yaml_file,write_yaml_file
+from networksecurity.utils.main_utils.utils import read_yaml_file,write_yaml_file,read_data
 import os,sys
 import numpy as np
 import pandas as pd
@@ -76,8 +76,8 @@ class DataValidation:
             test_file_path=self.data_ingestion_artifact.test_file_path
             
             # read data from test and train 
-            train_dataframe = DataValidation.read_data(file_path=train_file_path)
-            test_dataframe = DataValidation.read_data(file_path=test_file_path)
+            train_dataframe = read_data(file_path=train_file_path)
+            test_dataframe = read_data(file_path=test_file_path)
             # validate number of column
             status = self.validate_number_of_columns(dataframe=train_dataframe)
             if not status:
@@ -106,6 +106,3 @@ class DataValidation:
         
         except Exception as e:
             raise NetworkSecurityException(e,sys)
-
-            
-
