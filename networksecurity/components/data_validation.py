@@ -81,18 +81,17 @@ class DataValidation:
             # validate number of column
             status = self.validate_number_of_columns(dataframe=train_dataframe)
             if not status:
-                error_message = f"Train dataframe does not contain all columns.\n"
+                print("Train dataframe does not contain all columns.\n")
             status = self.validate_number_of_columns(dataframe=test_dataframe)
             if not status:
-                error_message = f"Test dataframe does not contain all columns.\n"
+                print(f"Test dataframe does not contain all columns.\n")
             # lets check data drift
             status = self.detect_dataset_drift(base_dataframe=train_dataframe,current_dataframe=test_dataframe)
             dir_path=os.path.dirname(self.data_validation_config.valid_train_file_path)
             os.makedirs(dir_path,exist_ok=True)
-            if status:
-                train_dataframe.to_csv(self.data_validation_config.valid_train_file_path,index=False,header=True)
-                test_dataframe.to_csv(self.data_validation_config.valid_test_file_path,index=False,header=True)
-            
+            train_dataframe.to_csv(self.data_validation_config.valid_train_file_path,index=False,header=True)
+            test_dataframe.to_csv(self.data_validation_config.valid_test_file_path,index=False,header=True)
+        
             data_validation_artifact=DataValidationArtifact(
                 validation_status=status,
                 valid_train_file_path=self.data_validation_config.valid_train_file_path,
